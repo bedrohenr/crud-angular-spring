@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Course } from '../model/course';
 
 @Component({
   selector: 'app-courses',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent {
+  constructor(){
+    // this.courses = [];
+  }
 
+  courses: Course[] = [];
 }
