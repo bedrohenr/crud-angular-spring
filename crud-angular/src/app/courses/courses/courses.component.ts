@@ -1,20 +1,24 @@
 import { Component } from '@angular/core';
 import { Course } from '../model/course';
-import { MatTableModule } from '@angular/material/table';
+import { AppMaterialModule } from '../../shared/app-material/app-material.module';
+import { CoursesService } from '../services/courses.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
-  imports: [MatTableModule],
+  imports: [AppMaterialModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent {
-  constructor(){
+  courses: Observable<Course[]>;
+  displayedColumns = ['name', 'category'];
+
+  constructor(private coursesService: CoursesService){
+    this.courses = this.coursesService.list();
     // this.courses = [];
+    // this.coursesService = new CoursesService();
   }
 
-  courses: Course[] = [
-    {_id: "1", name: "Angular", category: "Frontend"}
-  ];
-  displayedColumns = ['name', 'category']
+  // coursesService: CoursesService;
 }
