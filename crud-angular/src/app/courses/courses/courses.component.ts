@@ -6,10 +6,11 @@ import { catchError, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-courses',
-  imports: [CommonModule, AppMaterialModule],
+  imports: [CommonModule, AppMaterialModule, SharedModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
