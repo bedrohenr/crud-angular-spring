@@ -7,6 +7,7 @@ import { CoursesRoutingModule } from './courses-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CoursesService } from './services/courses.service';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     CoursesRoutingModule,
     MatTableModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [CoursesService]
 })

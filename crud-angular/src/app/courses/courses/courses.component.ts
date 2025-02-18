@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -20,6 +21,8 @@ export class CoursesComponent {
 
   constructor(
     private coursesService: CoursesService,
+    private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog
   ){
     this.courses$ = this.coursesService.list()
@@ -33,6 +36,9 @@ export class CoursesComponent {
     // this.coursesService = new CoursesService();
   }
 
+  onAdd(){
+    this.router.navigate(['new'], {relativeTo: this.route})
+  }
   onError(errorMsg: string){
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg
