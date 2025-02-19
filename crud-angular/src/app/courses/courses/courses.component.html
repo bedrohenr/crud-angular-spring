@@ -3,62 +3,16 @@
     <mat-toolbar>
       <span>Cursos Disponíveis</span>
     </mat-toolbar>
+    <div class="column-flex mat-elevation-z8">
+      <app-courses-list *ngIf="courses$ | async as courses; else loading" [courses]="courses"></app-courses-list>
 
-    <div *ngIf="courses$ | async as courses; else loading">
+      <ng-template #loading>
 
-      <table mat-table [dataSource]="courses" matSort class="mat-elevation-z8">
+        <div class="loading-spinner">
+          <mat-spinner></mat-spinner>
+        </div>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
-            Curso
-          </th>
-          <td mat-cell *matCellDef="let course"> {{ course.name }} </td>
-        </ng-container>
-
-        <!-- Category Column -->
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-            Categoria
-          </th>
-          <td mat-cell *matCellDef="let course">
-            {{course.category}}
-            <mat-icon aria-hidden="false" aria-label="Categoria do Curso" fontIcon="{{ course.category | category }}"></mat-icon>
-
-          </td>
-        </ng-container>
-
-        <!-- Actions Column -->
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>
-            <button mat-mini-fab color="accent" aria-label="Adicionar um curso">
-              <mat-icon (click)="onAdd()">add</mat-icon>
-            </button>
-          </th>
-          <td mat-cell *matCellDef="let course">
-            <button mat-icon-button color="primary" aria-label="Adicionar curso">
-              <mat-icon>edit</mat-icon>
-            </button>
-
-            <button mat-icon-button color="red" aria-label="Remover curso">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-      </table>
-
+      </ng-template>
     </div>
-
-    <ng-template #loading>
-
-      <div class="loading-spinner">
-        <mat-spinner></mat-spinner>
-      </div>
-
-    </ng-template>
-
   </mat-card-content>
 </mat-card>
