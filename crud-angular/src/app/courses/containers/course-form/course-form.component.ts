@@ -4,6 +4,9 @@ import { AppMaterialModule } from '../../../shared/app-material/app-material.mod
 import { CoursesService } from '../../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from '../../model/course';
+import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-course-form',
@@ -14,6 +17,7 @@ import { Location } from '@angular/common';
 export class CourseFormComponent {
 
   form = new FormGroup({
+    _id : new FormControl<string>(''),
     name: new FormControl<string>('', {nonNullable: true}),
     category: new FormControl<string>('', {nonNullable: true}),
   });
@@ -22,8 +26,18 @@ export class CourseFormComponent {
     private formBuilder: NonNullableFormBuilder,
     private service: CoursesService,
     private snackBar: MatSnackBar,
-    private location: Location
-  ){ }
+    private location: Location,
+    private route: ActivatedRoute
+  ) {
+    const course: Course = this.route.snapshot.data['course'];
+
+    // Setando o formulario tipado
+    this.form.setValue({
+      _id: course._id,
+      name: course.name,
+      category: course.category
+    })
+  }
 
   onSubmit(){
     this.service.save(this.form.value)
