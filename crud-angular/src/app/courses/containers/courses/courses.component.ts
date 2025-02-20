@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component } from '@angular/core';
 import { Course } from '../../model/course';
 import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
@@ -9,6 +10,7 @@ import { ErrorDialogComponent } from '../../../shared/components/error-dialog/er
 import { SharedModule } from '../../../shared/shared.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesListComponent } from "../../components/courses-list/courses-list.component";
+import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-courses',
@@ -25,7 +27,8 @@ export class CoursesComponent {
     private coursesService: CoursesService,
     private router: Router,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ){
     this.refresh();
     // this.courses = [];
@@ -38,6 +41,22 @@ export class CoursesComponent {
 
   onEdit(course: Course){
     this.router.navigate(['edit', course._id], {relativeTo: this.route})
+  }
+
+  // Abre o popup antes da remoção da curso
+  onDelete(course: Course){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data: 'Tem certeza que deseja remover ese curso?'
+    });
+
+    dialogRef.afterClosed().subscribe(
+      (result: boolean) => {
+        if(result){
+          console.log('curso deletado');
+          this.delete(course);
+        }
+      }
+    )
   }
 
   // Faz a efetiva remoção do curso
@@ -70,5 +89,4 @@ export class CoursesComponent {
       data: errorMsg
     });
   }
-  // coursesService: CoursesService;
 }
