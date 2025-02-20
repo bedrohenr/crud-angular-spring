@@ -41,8 +41,13 @@ export class CoursesService {
   }
 
   private update(record: Partial<Course>) {
-
     return this.httpClient.put<Course>(`${this.API}/${record._id}`, record)
+    .pipe(first());
+  }
+
+  //TODO: kkkkkk
+  delete(id: string | null) {
+    return this.httpClient.delete(`${this.API}/${id}`)
     .pipe(first());
   }
 }
