@@ -17,7 +17,8 @@ import { CoursesListComponent } from "../../components/courses-list/courses-list
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent {
-  courses$: Observable<Course[]>;
+  // | null para resolver problema de compilação
+  courses$: Observable<Course[]> | null = null;
   displayedColumns = ['name', 'category','actions'];
 
   constructor(
@@ -26,13 +27,7 @@ export class CoursesComponent {
     private route: ActivatedRoute,
     public dialog: MatDialog
   ){
-    this.courses$ = this.coursesService.list()
-    .pipe(
-      catchError(error => {
-        this.onError('Erro ao carregar cursos.');
-        return of([]);
-      })
-    );
+    this.refresh();
     // this.courses = [];
     // this.coursesService = new CoursesService();
   }
@@ -43,6 +38,16 @@ export class CoursesComponent {
 
   onEdit(course: Course){
     this.router.navigate(['edit', course._id], {relativeTo: this.route})
+  }
+
+  refresh(){
+    this.courses$ = this.coursesService.list()
+    .pipe(
+      catchError(error => {
+        this.onError('Erro ao carregar cursos.');
+        return of([]);
+      })
+    );
   }
 
   onError(errorMsg: string){
