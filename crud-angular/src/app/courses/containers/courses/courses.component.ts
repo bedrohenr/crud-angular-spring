@@ -40,6 +40,21 @@ export class CoursesComponent {
     this.router.navigate(['edit', course._id], {relativeTo: this.route})
   }
 
+  // Faz a efetiva remoção do curso
+  delete(course: Course){
+    this.coursesService.delete(course._id).subscribe(
+      () => {
+        this.refresh();
+        this.snackBar.open('Curso removido com sucesso', 'Fechar', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        })
+      },
+      error => this.onError('Erro ao tentar remover curso')
+    );
+  }
+
   refresh(){
     this.courses$ = this.coursesService.list()
     .pipe(
