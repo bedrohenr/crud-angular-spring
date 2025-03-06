@@ -46,7 +46,7 @@ export class CoursesService {
   }
 
   //TODO: kkkkkk
-  delete(id: string | null) {
+  delete(id: string | null | undefined) {
     return this.httpClient.delete(`${this.API}/${id}`)
     .pipe(first());
   }
