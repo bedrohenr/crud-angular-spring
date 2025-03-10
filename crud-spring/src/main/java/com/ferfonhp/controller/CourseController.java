@@ -18,24 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ferfonhp.model.Course;
 import com.ferfonhp.repository.CourseRepository;
+import com.ferfonhp.service.CourseService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import lombok.AllArgsConstructor;
-
 @Validated
 @RestController
 @RequestMapping("/api/courses")
-@AllArgsConstructor // Cria construtores
 public class CourseController {
     
-    private final CourseRepository courseRepository;
+    private final CourseService courseService;
 
-    // public CourseController(CourseRepository courseRepository) {
-    //     this.courseRepository = courseRepository;
-    // }
+    public CourseController(CourseRepository courseRepository, CourseService courseService) {
+        this.courseRepository = courseRepository;
+        this.courseService = courseService;
+    }
 
     @GetMapping
     public @ResponseBody List<Course> list(){
