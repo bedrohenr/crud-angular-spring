@@ -68,12 +68,10 @@ public class CourseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
 
-        return courseRepository.findById(id)
-            .map(recordFound -> {
-                courseRepository.deleteById(id);
-
+        if(courseService.delete(id)){
                 return ResponseEntity.noContent().<Void>build();
-            })
-            .orElse(ResponseEntity.notFound().build());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
