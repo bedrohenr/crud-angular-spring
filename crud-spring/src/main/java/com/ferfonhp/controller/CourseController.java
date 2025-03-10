@@ -39,7 +39,7 @@ public class CourseController {
 
     @GetMapping
     public @ResponseBody List<Course> list(){
-        return courseRepository.findAll();
+        return courseService.list();
     }
 
     @GetMapping("/{id}")
