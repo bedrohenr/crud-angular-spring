@@ -59,17 +59,11 @@ public class CourseController {
     @PutMapping("/{id}")
     public ResponseEntity<Course> update(
         @PathVariable @NotNull @Positive Long id,
-        @RequestBody Course course
+        @RequestBody @Valid Course course
         ) {
-        return courseRepository.findById(id)
-            .map(recordFound -> {
-                recordFound.setName(course.getName());
-                recordFound.setCategory(course.getCategory());
-
-                Course updated = courseRepository.save(recordFound);
-                return ResponseEntity.ok().body(updated);
-            })
-            .orElse(ResponseEntity.notFound().build());
+        return courseService.update(id, course)
+            .map( recordFound -> { return ResponseEntity.ok().body(recordFound); })
+            .orElse( ResponseEntity.notFound().build() );
 
     }
 
