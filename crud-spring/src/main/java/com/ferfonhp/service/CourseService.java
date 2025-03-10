@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.ferfonhp.exception.RecordNotFoundException;
 import com.ferfonhp.model.Course;
 import com.ferfonhp.repository.CourseRepository;
 
