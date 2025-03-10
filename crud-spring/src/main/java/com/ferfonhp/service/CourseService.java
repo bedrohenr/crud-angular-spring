@@ -49,14 +49,19 @@ public class CourseService {
             }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public boolean delete(@PathVariable @NotNull @Positive Long id) {
+    public void delete(@PathVariable @NotNull @Positive Long id) {
 
-        return courseRepository.findById(id)
-            .map(recordFound -> {
-                courseRepository.deleteById(id);
+        courseRepository.delete(
+            courseRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id))
+            );
 
-                return true;
-            })
-            .orElse(false);
+        // courseRepository.findById(id)
+        //     .map(recordFound -> {
+        //         courseRepository.deleteById(id);
+
+        //         return true;
+        //     })
+        //     .orElseThrow(() -> new RecordNotFoundException(id));
     }
 }
