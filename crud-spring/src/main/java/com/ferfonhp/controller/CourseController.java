@@ -31,7 +31,7 @@ public class CourseController {
     
     private final CourseService courseService;
 
-    public CourseController(CourseRepository courseRepository, CourseService courseService) {
+    public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
