@@ -1,5 +1,8 @@
 package com.ferfonhp.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -15,7 +18,9 @@ import lombok.Data;
 
 @Data
 @Entity
-//@Table(name == "cursos")
+//@Table(name == "cursos" override = @org.hibernate.annotations.SQLDelete
+@SQLDelete(sql = "UPDATE Course SET status = 'Inactive' WHERE id = ?")
+@Where(clause = "status = 'Active'")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,4 +41,9 @@ public class Course {
     //@Column(category == "categoria") // Vincula nome da coluna a esta var
     private String category;
 
+    @NotNull
+    @Size(max = 10)
+    @Pattern(regexp = "Active|Inactive")
+    @Column(length = 10, nullable = false)
+    private String status = "Active";
 }
