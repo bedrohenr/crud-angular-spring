@@ -36,8 +36,7 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
-
-    public Optional<Course> update(
+    public Course update(
         @NotNull @Positive Long id,
         @Valid Course course
         ) {
@@ -47,7 +46,7 @@ public class CourseService {
                 recordFound.setCategory(course.getCategory());
 
                 return courseRepository.save(recordFound);
-            });
+            }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     public boolean delete(@PathVariable @NotNull @Positive Long id) {
