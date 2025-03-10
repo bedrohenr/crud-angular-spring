@@ -69,7 +69,7 @@ public class CourseController {
     public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
 
         if(courseService.delete(id)){
-                return ResponseEntity.noContent().<Void>build();
+            return ResponseEntity.noContent().<Void>build();
         }
 
         return ResponseEntity.notFound().build();
