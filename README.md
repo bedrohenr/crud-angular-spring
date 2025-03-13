@@ -22,7 +22,7 @@ Iniciaremos o projeto Java Spring, o back-end.
 
 ``` bash
 $ cd crud-spring
-$ mvn spring-boot-run
+$ mvn spring-boot:run
 
 ```
 
