@@ -36,5 +36,5 @@ Logo após entrar na pasta do projeto Angular e o iniciamos
 
 ``` bash
 $ cd crug-angular
-$  nnpm run start
+$ npm run start
 ```
