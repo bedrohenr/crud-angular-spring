@@ -9,7 +9,9 @@ CRUD de cursos (Nome do curso, categoria)
 ## Especificações
 
 Angular JS 19: Node v23.7.0
+
 Java Spring 4: Java 21.0.6
+
   Maven 3.8.9
 
 ## Como executar
